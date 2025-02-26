@@ -1,15 +1,13 @@
 
 from database_setting import connection
-def add_customer_details(cust_list):
+def add_details(record_list,table_name,length):
     try:
         if connection.is_connected():
             cursor=connection.cursor()
-            query = "INSERT INTO customers (cust_name, DOB, phone, email, type) VALUES ("
-            query += '\'' + cust_list[0] + '\','  
-            query += '\'' + cust_list[1] + '\','  
-            query += '\'' + cust_list[2] + '\','  
-            query += '\'' + cust_list[3] + '\','  
-            query += '\'' + cust_list[4] + '\''   
+            query = "INSERT INTO " +table_name+" VALUES ("
+            for i in range(length-1):
+                query += '\'' + record_list[i] + '\','  
+            query+='\''+str(record_list[-1])+'\'' 
             query += ");"
             cursor.execute(query) 
             connection.commit()
@@ -20,3 +18,9 @@ def add_customer_details(cust_list):
     except Exception as e:
       
         print(f"An error occurred: {e}")
+def branch(list_branch):
+      try:
+        if connection.is_connected():
+            cursor=connection.cursor()
+      except:
+          print("ERROR!")
