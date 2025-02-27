@@ -15,9 +15,6 @@ class Account(ABC):
         self.cust_id = random.randint(999, 1500)  
         self.balance = money
         add_details([self.cust_name,self.dob,self.phone,self.email,self.type,str(self.cust_id),str(self.cust_ifsc),self.balance],'customers',8)
-    # def to_list(self):
-     
-    #     return [self.cust_name, self.dob, self.phone, self.email, self.type, str(self.cust_id), str(self.cust_ifsc), self.balance]
 
     @abstractmethod
     def withdraw(self, amount):
@@ -29,22 +26,21 @@ class Account(ABC):
 
 
 class Savings(Account):
-    def withdraw(self, amount):
-        if self.balance - amount >= 1000:
-            self.balance -= amount
-            return f"Withdrawn ₹{amount}. Balance: ₹{self.balance}"
-        return "Invalid."
+    def withdraw(self, amount,balance):
+        if balance - amount >= 1000:
+            balance -= amount
+            return balance
 
-    def deposit(self, amount):
-        self.balance += amount
-        return f"Deposited ₹{amount}. New Balance: ₹{self.balance}"
+    def deposit(self, amount,balance):
+        balance += amount
+        return balance
 
 class Current(Account):
-    def withdraw(self, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            return f"Withdrawn ₹{amount}.Balance: ₹{self.balance}"
-        return "Invalid"
+    def withdraw(self, amount,balance):
+        if balance >= amount:
+            balance -= amount
+            return balance
+  
 
     def deposit(self, amount):
         self.balance += amount
@@ -52,28 +48,31 @@ class Current(Account):
 
 class LoanAccount(Account):
    
-
     def withdraw(self, amount):
         return "Withdrawals are not allowed for loan accounts."
-
+    
     def deposit(self, amount):
         self.balance -= amount 
         return f"Loan repayment of ₹{amount} made.  loan: ₹{self.balance}"
 
 
 class Branch:
-  
-
-    def __init__(self, branch_name, bank_name,address):
+    _customers=[]
+    def __init__(self, branch_name='', bank_name='',address=''):
         self.branch_name = branch_name
         self.bank_name = bank_name
         self.address=address
-        self.ifsc_code = random.randint(1500, 2500)  
-
+        self.ifsc_code = random.randint(1500, 2500)
     def create_account(self, cust_name, dob, phone, email, acc_type, money):
         account = self._get_account_type(cust_name, dob, phone, email, acc_type, money, self.ifsc_code)
-        # add_details(account.to_list(), 'customers', 8)
-        # return account
+        Branch._customers.append(account)
+        return account 
+    # def get_customer_obj(self,cust_id):
+    #     for i in Branch._customers:
+    #         if i.cust_id==cust_id:
+    #             return i 
+    #     print("Invalid cust_id")
+    #     return 
 
     def _get_account_type(self, name, dob, phone, email, acc_type, money, ifsc):
         if acc_type.lower() == "savings":

@@ -1,10 +1,10 @@
 class View:
     
-    @staticmethod
+
     def display_message(message):
         print(message)
 
-    @staticmethod
+
     def display_account_details(account):
      
         print("Account Created Successfully!")
@@ -17,6 +17,6 @@ class View:
         print(f" IFSC Code     : {account.cust_ifsc}")
         print(f" Balance       : ₹{account.balance}")
 
-    @staticmethod
+   
     def display_error(error_message):
         print(f"Error: {error_message}")
