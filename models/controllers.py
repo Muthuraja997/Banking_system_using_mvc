@@ -17,8 +17,10 @@ class TransactionController:
     def money_transfer_debit(self,data_list,money):
          if data_list[0]=='savings':
              amount=Savings().withdrow(money,data_list[1])
+             return amount
          if data_list[0]=='current':
-             amount=Current().withdrow(money,data_list[1])
+             amount=Current('one','two').withdraw(money,data_list[1])
+             return amount
         #  if data_list[0]=='loan':
         #      LoanAccount().withdrow(data_list[1])
              

@@ -14,7 +14,9 @@ class Account(ABC):
         self.cust_ifsc = branch_ifsc  
         self.cust_id = random.randint(999, 1500)  
         self.balance = money
-        add_details([self.cust_name,self.dob,self.phone,self.email,self.type,str(self.cust_id),str(self.cust_ifsc),self.balance],'customers',8)
+        self.acc_no=random.randint(999,1500)
+        add_details([self.cust_name,self.dob,self.phone, self.email,str(self.cust_id)],'customers')
+        add_details([str(self.acc_no),str(self.cust_id),str(self.balance),self.type],'account')
 
     @abstractmethod
     def withdraw(self, amount):
@@ -26,6 +28,7 @@ class Account(ABC):
 
 
 class Savings(Account):
+    
     def withdraw(self, amount,balance):
         if balance - amount >= 1000:
             balance -= amount
@@ -36,6 +39,9 @@ class Savings(Account):
         return balance
 
 class Current(Account):
+    def __init__(self,amount,balance):
+        self.amount=amount
+        self.balance=balance
     def withdraw(self, amount,balance):
         if balance >= amount:
             balance -= amount
@@ -85,4 +91,4 @@ class Branch:
             raise ValueError("Invalid")
 
     def save_branch(self):
-        add_details([str(0), self.branch_name, self.bank_name, str(self.ifsc_code), self.address], 'branch', 5)
+        add_details([str(0), self.branch_name, self.bank_name, str(self.ifsc_code), self.address], 'branch')

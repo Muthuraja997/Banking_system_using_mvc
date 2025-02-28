@@ -11,5 +11,4 @@ if __name__ == "__main__":
         acc_type="current",
         money=5000
     )
-
     

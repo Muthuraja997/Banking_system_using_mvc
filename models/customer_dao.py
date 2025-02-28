@@ -9,7 +9,8 @@ class customer_to_table_dao:
                 return True 
             else:
                 return False
-        except:
+        except Exception as e:
+            print("ERROR MSG IS :",e)
             return False 
     def get_balance(self,query):
         try:
