@@ -6,7 +6,6 @@ class View:
 
 
     def display_account_details(account):
-     
         print("Account Created Successfully!")
         print(f" Customer Name : {account.cust_name}")
         print(f" Date of Birth : {account.dob}")
@@ -20,3 +19,6 @@ class View:
    
     def display_error(error_message):
         print(f"Error: {error_message}")
+    def get_amout():
+        amount=int(input("Enter The amount:"))
+        return amount

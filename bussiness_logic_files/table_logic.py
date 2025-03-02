@@ -1,6 +1,6 @@
 
 # from database_setting import connection
-from customer_dao import customer_to_table_dao
+from models.customer_dao import customer_to_table_dao
 def add_details(record_list,table_name):
         length=len(record_list)
         query = "INSERT INTO " +table_name+" VALUES ("
@@ -23,7 +23,13 @@ def generate_get_amount_query(acc_no,table_name):
         else:
             v=list(v)
             return v 
-        
+def generate_put_amount_query(acc_no,money,table_name):
+    query="UPDATE "+table_name+" SET BALANCE =" +str(money)+" WHERE ACC_NO ="+str(acc_no)+";"
+    respose=customer_to_table_dao().put_money(query)
+    if respose==0:
+         print("ERROR")
+    else:
+         print("seccess")
         
 # generate_get_amount_query(1095,'customers')
             # cursor.execute(query) 

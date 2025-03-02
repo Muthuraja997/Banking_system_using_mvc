@@ -1,6 +1,5 @@
-from models import Branch
-from models import Savings,Current,LoanAccount
-from views import View
+from  sourses.models import Savings,Current,LoanAccount,Branch
+from view.views import View
 
 class BankController:
 
@@ -16,12 +15,12 @@ class BankController:
 class TransactionController:
     def money_transfer_debit(self,data_list,money):
          if data_list[0]=='savings':
-             amount=Savings().withdrow(money,data_list[1])
+             amount=Savings('one','two').withdrow(money,data_list[1])
              return amount
          if data_list[0]=='current':
              amount=Current('one','two').withdraw(money,data_list[1])
              return amount
-        #  if data_list[0]=='loan':
-        #      LoanAccount().withdrow(data_list[1])
+         if data_list[0]=='loan':
+             LoanAccount('one','two').withdrow(data_list[1])
              
              

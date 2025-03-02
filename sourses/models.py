@@ -1,19 +1,19 @@
 from abc import ABC, abstractmethod
 import random
-from table_logic import add_details
+from bussiness_logic_files.table_logic import add_details
 
 
 class Account(ABC):
     
-    def __init__(self, cust_name, dob, phone, email, acc_type, money, branch_ifsc):
-        self.cust_name = cust_name
-        self.dob = dob
-        self.phone = phone
-        self.email = email
-        self.type = acc_type
-        self.cust_ifsc = branch_ifsc  
+    def __init__(self,*args): #self, cust_name, dob, phone, email, acc_type, money, branch_ifsc):
+        self.cust_name = args[0]
+        self.dob = args[1]
+        self.phone = args[2]
+        self.email = args[3]
+        self.type = args[4]
+        self.cust_ifsc = args[6]  
         self.cust_id = random.randint(999, 1500)  
-        self.balance = money
+        self.balance = args[5]
         self.acc_no=random.randint(999,1500)
         add_details([self.cust_name,self.dob,self.phone, self.email,str(self.cust_id)],'customers')
         add_details([str(self.acc_no),str(self.cust_id),str(self.balance),self.type],'account')
@@ -28,7 +28,10 @@ class Account(ABC):
 
 
 class Savings(Account):
-    
+    def __init__(self,*args):
+        if len(args)>3:
+            super().__init__(*args)
+
     def withdraw(self, amount,balance):
         if balance - amount >= 1000:
             balance -= amount
@@ -39,9 +42,12 @@ class Savings(Account):
         return balance
 
 class Current(Account):
-    def __init__(self,amount,balance):
-        self.amount=amount
-        self.balance=balance
+    def __init__(self,*args):
+        print(*args)
+        if len(args)!=2:
+            super().__init__(*args)
+        # self.amount=amount
+        # self.balance=balance
     def withdraw(self, amount,balance):
         if balance >= amount:
             balance -= amount
@@ -53,7 +59,10 @@ class Current(Account):
         return f"Deposited ₹{amount}. Balance: ₹{self.balance}"
 
 class LoanAccount(Account):
-   
+    def __init__(self,*args):
+        if len(args)!=2:
+            super().__init__(*args)
+        
     def withdraw(self, amount):
         return "Withdrawals are not allowed for loan accounts."
     

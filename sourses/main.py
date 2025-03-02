@@ -1,6 +1,7 @@
-from controllers import BankController
-
-if __name__ == "__main__":
+from controller.controllers import BankController
+from bussiness_logic_files.transaction_logic import Transactions
+from view.views import View
+def main():
     bank = BankController(branch_name="Madurai", bank_name="IOB",address="valayapatti madurai-625022")
 
     bank.create_account(
@@ -11,4 +12,7 @@ if __name__ == "__main__":
         acc_type="current",
         money=5000
     )
+    amount=View.get_amout()
+    Transactions().debit('1124',amount)
+
     
