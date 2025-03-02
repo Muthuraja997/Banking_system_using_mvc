@@ -1,9 +1,7 @@
 class View:
-    
 
     def display_message(message):
         print(message)
-
 
     def display_account_details(account):
         print("Account Created Successfully!")
@@ -19,6 +17,14 @@ class View:
    
     def display_error(error_message):
         print(f"Error: {error_message}")
-    def get_amout():
+class user_input:
+    def get_amout(self):
         amount=int(input("Enter The amount:"))
         return amount
+    def enter_choice(self):
+        print("1.Create a account")
+        print("2.withraw")
+        print("3.deposit")
+        choice=int(input())
+        return choice
+            

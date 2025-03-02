@@ -9,6 +9,7 @@ class Transactions:
     def chack(self,acc_no):
         v=generate_get_amount_query(acc_no,'account')
         return v
-    # def credit(acc_no,money):
-    #     generate_put_amount_query(acc_no,money,'account')
-
+    def credit(self,acc_no,amount):
+        balance_and_type=self.chack(acc_no)
+        current_money=TransactionController().money_transfer_credit(balance_and_type,amount)
+        generate_put_amount_query(acc_no,current_money,'account')
